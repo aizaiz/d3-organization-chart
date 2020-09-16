@@ -38,9 +38,9 @@ class TreeChart {
             this[key] = function (_) {
                 
                 if (!arguments.length) {
-                    return attrs['${key}'];
+                    return attrs[`${key}`];
                 }
-                attrs['${key}'] = _;
+                attrs[`${key}`] = _;
                 return this;
             };
         });
