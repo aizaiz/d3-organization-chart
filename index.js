@@ -1,4 +1,4 @@
-d3 = require('d3');
+const d3 = require('d3');
 
 class TreeChart {
     constructor() {
@@ -24,6 +24,10 @@ class TreeChart {
             dropShadowId: null,
             initialZoom: 1,
             onNodeClick: d => d,
+            onNodeDragOver: null,
+            onNodeDragEnter: null,
+            onNodeDragLeave: null,
+            onNodeDrop: null,
         };
 
         this.getChartState = () => attrs;
@@ -32,11 +36,11 @@ class TreeChart {
         Object.keys(attrs).forEach((key) => {
             //@ts-ignore
             this[key] = function (_) {
-                var string = `attrs['${key}'] = _`;
+                
                 if (!arguments.length) {
-                    return eval(`attrs['${key}'];`);
+                    return attrs['${key}'];
                 }
-                eval(string);
+                attrs['${key}'] = _;
                 return this;
             };
         });
@@ -740,6 +744,18 @@ class TreeChart {
                 selector: 'node-foreign-object',
                 data: d => [d]
             })
+            .on('dragover', attrs.onNodeDragOver ? ({data}) => {
+                attrs.onNodeDragOver(d3.event, data);
+            } : null)
+            .on('dragenter', attrs.onNodeDragEnter ? ({data}) => {
+                attrs.onNodeDragEnter(d3.event, data);
+            } : null)
+            .on('dragleave', attrs.onNodeDragLeave ? ({data}) => {
+                attrs.onNodeDragLeave(d3.event, data);
+            } : null)
+            .on('drop', attrs.onNodeDrop ? ({data}) => {
+                attrs.onNodeDrop(d3.event, data);
+            } : null);
 
 
         // Add foreign object 
@@ -748,6 +764,7 @@ class TreeChart {
             selector: 'node-foreign-object-div',
             data: d => [d]
         })
+        .style("pointer-events", "none");
 
         this.restyleForeignObjectElements();
 
