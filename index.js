@@ -656,7 +656,6 @@ class TreeChart {
                 _children
             }) => _children ? "transparent" : "#fff")
 
-
         /*
         // Add node icon image inside node
         nodeEnter
@@ -1031,19 +1030,19 @@ class TreeChart {
             .attr('y', ({
                 height
             }) => -height / 2)
-            .attr('rx', ({
+            .attr('border', ({
+                data
+            }) => `${data.borderWidth || attrs.strokeWidth} solid`)
+            .attr('border-radius', ({
                 data
             }) => data.borderRadius || 0)
-            .attr('stroke-width', ({
-                data
-            }) => data.borderWidth || attrs.strokeWidth)
-            .attr('cursor', 'default')
-            .attr('stroke', ({
+            .attr('border-color', ({
                 borderColor
             }) => borderColor)
-            .style("fill", ({
+            .style("background-color", ({
                 backgroundColor
             }) => backgroundColor)
+            .attr('cursor', 'default')
 
         attrs.svg.selectAll('.node-foreign-object-div')
             .style('width', ({
