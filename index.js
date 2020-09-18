@@ -654,7 +654,7 @@ class TreeChart {
             })
             .style("fill", ({
                 _children
-            }) => _children ? "lightsteelblue" : "#fff")
+            }) => _children ? "transparent" : "#fff")
 
 
         /*
@@ -877,16 +877,16 @@ class TreeChart {
             .attr('rx', ({
                 data
             }) => data.borderRadius || 0)
-            .attr('stroke-width', ({
-                data
-            }) => data.borderWidth || attrs.strokeWidth)
-            .attr('cursor', 'pointer')
-            .attr('stroke', ({
-                borderColor
-            }) => borderColor)
-            .style("fill", ({
-                backgroundColor
-            }) => backgroundColor)
+            // .attr('stroke-width', ({
+            //     data
+            // }) => data.borderWidth || attrs.strokeWidth)
+            // .attr('cursor', 'pointer')
+            // .attr('stroke', ({
+            //     borderColor
+            // }) => borderColor)
+            // .style("fill", ({
+            //     backgroundColor
+            // }) => backgroundColor)
 
         // Move node button group to the desired position
         nodeUpdate.select('.node-button-g')
@@ -1031,6 +1031,20 @@ class TreeChart {
             .attr('y', ({
                 height
             }) => -height / 2)
+            .attr('rx', ({
+                data
+            }) => data.borderRadius || 0)
+            .attr('stroke-width', ({
+                data
+            }) => data.borderWidth || attrs.strokeWidth)
+            .attr('cursor', 'default')
+            .attr('stroke', ({
+                borderColor
+            }) => borderColor)
+            .style("fill", ({
+                backgroundColor
+            }) => backgroundColor)
+
         attrs.svg.selectAll('.node-foreign-object-div')
             .style('width', ({
                 width
