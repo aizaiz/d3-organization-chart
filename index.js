@@ -1030,19 +1030,19 @@ class TreeChart {
             .attr('y', ({
                 height
             }) => -height / 2)
-            .attr('border', ({
+            .style('border', ({
                 data
             }) => `${data.borderWidth || attrs.strokeWidth} solid`)
-            .attr('border-radius', ({
+            .style('border-radius', ({
                 data
             }) => data.borderRadius || 0)
-            .attr('border-color', ({
+            .style('border-color', ({
                 borderColor
             }) => borderColor)
             .style("background-color", ({
                 backgroundColor
             }) => backgroundColor)
-            .attr('cursor', 'default')
+            .style('cursor', 'default')
 
         attrs.svg.selectAll('.node-foreign-object-div')
             .style('width', ({
