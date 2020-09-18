@@ -1052,9 +1052,11 @@ class TreeChart {
             d._children = null;
 
             // Set each children as expanded
-            d.children.forEach(({
-                data
-            }) => data.expanded = true)
+            if (d.children) {
+                d.children.forEach(({
+                    data
+                }) => data.expanded = true)
+            }
         }
 
         // Redraw Graph 
