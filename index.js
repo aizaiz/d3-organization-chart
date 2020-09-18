@@ -1037,9 +1037,9 @@ class TreeChart {
                 data
             }) => `${data.borderRadius || 0}px`)
             .style('border-color', ({
-                borderColor
-            }) => borderColor)
-            .style("background-color", ({
+                data
+            }) => data.borderColor)
+            .style('background-color', ({
                 backgroundColor
             }) => backgroundColor)
             .style('cursor', 'default')
