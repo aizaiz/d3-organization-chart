@@ -430,6 +430,7 @@ class TreeChart {
                 if (d.width) return d;
 
                 // Declare properties with deffault values
+                let showImage = true;
                 let imageWidth = 100;
                 let imageHeight = 100;
                 let imageBorderColor = 'steelblue';
@@ -444,6 +445,7 @@ class TreeChart {
                 let dropShadowId = `none`;
 
                 // Override default values based on data
+                if (!d.data.nodeImage) showImage = false;
                 if (d.data.nodeImage && d.data.nodeImage.shadow) {
                     dropShadowId = `url(#${attrs.dropShadowId})`
                 }
@@ -454,7 +456,9 @@ class TreeChart {
                     imageHeight = d.data.nodeImage.height
                 };
                 if (d.data.nodeImage && d.data.nodeImage.borderColor) {
-                    imageBorderColor = this.rgbaObjToColor(d.data.nodeImage.borderColor)
+                    imageBorderColor = (typeof d.data.nodeImage.borderColor === 'object') ?
+                        this.rgbaObjToColor(d.data.nodeImage.borderColor) :
+                        typeof d.data.nodeImage.borderColor;
                 };
                 if (d.data.nodeImage && d.data.nodeImage.borderWidth) {
                     imageBorderWidth = d.data.nodeImage.borderWidth
@@ -466,10 +470,14 @@ class TreeChart {
                     imageCenterLeftDistance = d.data.nodeImage.centerLeftDistance
                 };
                 if (d.data.borderColor) {
-                    borderColor = this.rgbaObjToColor(d.data.borderColor);
+                    borderColor = (typeof d.data.borderColor === 'object') ?
+                        this.rgbaObjToColor(d.data.borderColor) :
+                        d.data.borderColor;
                 }
                 if (d.data.backgroundColor) {
-                    backgroundColor = this.rgbaObjToColor(d.data.backgroundColor);
+                    backgroundColor = borderColor = (typeof d.data.backgroundColor === 'object') ?
+                        this.rgbaObjToColor(d.data.backgroundColor) :
+                        d.data.backgroundColor;
                 }
                 if (d.data.nodeImage &&
                     d.data.nodeImage.cornerShape.toLowerCase() == "circle") {
@@ -482,6 +490,7 @@ class TreeChart {
 
                 // Extend node object with calculated properties
                 return Object.assign(d, {
+                    showImage,
                     imageWidth,
                     imageHeight,
                     imageBorderColor,
@@ -532,6 +541,7 @@ class TreeChart {
         })
             .attr('x', 0)
             .attr('y', 0)
+            .attr('display', ({showImage}) => showImage? 'unset' : 'none')
             .attr('height', ({
                 imageWidth
             }) => imageWidth)
@@ -582,7 +592,9 @@ class TreeChart {
                 data
             }) => {
                 if (data.connectorLineColor) {
-                    return this.rgbaObjToColor(data.connectorLineColor);
+                    return (typeof data.connectorLineColor === 'object') ?
+                        this.rgbaObjToColor(data.connectorLineColor) :
+                        data.connectorLineColor;
                 }
                 return 'green';
             })
@@ -824,6 +836,7 @@ class TreeChart {
             .attr('fill', ({
                 id
             }) => `url(#${id})`)
+            .attr('display', ({showImage}) => showImage? 'unset' : 'none')
             .attr('width', ({
                 imageWidth
             }) => imageWidth)
