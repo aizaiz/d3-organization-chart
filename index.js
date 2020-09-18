@@ -1032,10 +1032,10 @@ class TreeChart {
             }) => -height / 2)
             .style('border', ({
                 data
-            }) => `${data.borderWidth || attrs.strokeWidth} solid`)
+            }) => `${data.borderWidth || attrs.strokeWidth}px solid`)
             .style('border-radius', ({
                 data
-            }) => data.borderRadius || 0)
+            }) => `${data.borderRadius || 0}px`)
             .style('border-color', ({
                 borderColor
             }) => borderColor)
