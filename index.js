@@ -726,23 +726,6 @@ class TreeChart {
           */
 
 
-        // Defined node images wrapper group
-        const nodeImageGroups = nodeEnter.patternify({
-            tag: 'g',
-            selector: 'node-image-group',
-            data: d => [d]
-        })
-
-        // Add background rectangle for node image
-        nodeImageGroups
-            .patternify({
-                tag: 'rect',
-                selector: 'node-image-rect',
-                data: d => [d]
-            })
-
-
-
         // Node update styles
         const nodeUpdate = nodeEnter.merge(nodesSelection)
             .style('font', '12px sans-serif');
@@ -779,6 +762,21 @@ class TreeChart {
         .style("pointer-events", "none");
 
         this.restyleForeignObjectElements();
+
+        // Defined node images wrapper group
+        const nodeImageGroups = nodeEnter.patternify({
+            tag: 'g',
+            selector: 'node-image-group',
+            data: d => [d]
+        })
+
+        // Add background rectangle for node image
+        nodeImageGroups
+            .patternify({
+                tag: 'rect',
+                selector: 'node-image-rect',
+                data: d => [d]
+            })
 
 
 
